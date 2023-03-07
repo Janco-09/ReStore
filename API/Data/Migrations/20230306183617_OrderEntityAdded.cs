@@ -220,7 +220,14 @@ namespace API.Data.Migrations
                 name: "UserAddress",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false),
+                    FullName = table.Column<string>(type: "TEXT", nullable: true),
+                    Address1 = table.Column<string>(type: "TEXT", nullable: true),
+                    Address2 = table.Column<string>(type: "TEXT", nullable: true),
+                    City = table.Column<string>(type: "TEXT", nullable: true),
+                    Province = table.Column<string>(type: "TEXT", nullable: true),
+                    Zip = table.Column<string>(type: "TEXT", nullable: true),
+                    Country = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -234,7 +241,7 @@ namespace API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderItems",
+                name: "OrderItem",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -248,9 +255,9 @@ namespace API.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.PrimaryKey("PK_OrderItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderItems_Orders_OrderId",
+                        name: "FK_OrderItem_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id");
@@ -340,8 +347,8 @@ namespace API.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderItems_OrderId",
-                table: "OrderItems",
+                name: "IX_OrderItem_OrderId",
+                table: "OrderItem",
                 column: "OrderId");
         }
 
@@ -367,7 +374,7 @@ namespace API.Data.Migrations
                 name: "BasketItems");
 
             migrationBuilder.DropTable(
-                name: "OrderItems");
+                name: "OrderItem");
 
             migrationBuilder.DropTable(
                 name: "UserAddress");
