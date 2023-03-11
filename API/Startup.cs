@@ -57,7 +57,7 @@ namespace API
             });
             services.AddDbContext<StoreContext>(opt =>
             {
-                opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddCors();
             services.AddIdentityCore<User>(opt =>
@@ -95,8 +95,11 @@ namespace API
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseDefaultFiles();
 
             app.UseCors(opt =>
             {
@@ -107,10 +110,15 @@ namespace API
 
             app.UseAuthorization();
 
+
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
+
+
         }
     }
 }
